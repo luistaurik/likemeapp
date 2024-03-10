@@ -32,4 +32,30 @@ const agregarPosts = async (titulo,img,descripcion,likes) => {
     }
 };
 
-module.exports = { obtenerPosts, agregarPosts }
+const darLike = async (id) => {
+    try {
+    const consulta = "UPDATE posts SET likes = likes + 1 WHERE id = $1"
+    const params = [id]
+    return await pool.query(consulta, params)
+    }
+    catch (e){
+        console.error("No se pudo dar like:",e)
+        throw e;
+    }
+}
+
+const deletePost = async (id) => {
+    try {
+        const consulta = "DELETE FROM posts WHERE id = $1"
+        const params = [id]
+        return await pool.query(consulta, params)
+        }
+        catch (e){
+            console.error("No se pudo eliminar, dio el siguiente error:",e)
+            throw e;
+        }
+}
+
+
+
+module.exports = { obtenerPosts, agregarPosts, darLike, deletePost}

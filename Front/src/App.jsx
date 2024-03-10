@@ -17,18 +17,17 @@ function App() {
   };
 
   const agregarPost = async () => {
-    const post = { titulo, url: imgSrc, descripcion, likes: 0 };
+    const post = { titulo, url: imgSrc, descripcion, likes: 0};
     await axios.post(urlBaseServer + "/posts", post);
-    await getPosts();
+    getPosts();
+    // setTitulo("")
   };
 
-  // este método se utilizará en el siguiente desafío
   const like = async (id) => {
     await axios.put(urlBaseServer + `/posts/like/${id}`);
     getPosts();
   };
 
-  // este método se utilizará en el siguiente desafío
   const eliminarPost = async (id) => {
     await axios.delete(urlBaseServer + `/posts/${id}`);
     getPosts();
